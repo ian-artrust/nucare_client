@@ -1,0 +1,25 @@
+{
+  "name": "zisca_client",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "datatables.net": "^1.10.16",
+    "eonasdan-bootstrap-datetimepicker": "bootstrap3-datetimepicker#^4.17.47",
+    "chosen": "^1.8.2",
+    "datatables.net-bs": "^2.1.1",
+    "select2": "^3.5.2",
+    "bootstrap": "^3.3.7",
+    "jquery-maskmoney": "https://github.com/plentz/jquery-maskmoney.git#^3.0.2",
+    "wnumb": "https://github.com/leongersen/wnumb.git#^1.1.0",
+    "PrintArea": "https://github.com/RitsC/PrintArea.git#^2.4.1",
+    "Jquery-Price-Format": "https://github.com/flaviosilveira/Jquery-Price-Format.git#^2.2.0"
+  }
+}

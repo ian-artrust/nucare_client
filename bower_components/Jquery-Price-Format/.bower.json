@@ -1,0 +1,14 @@
+{
+  "name": "Jquery-Price-Format",
+  "homepage": "https://github.com/flaviosilveira/Jquery-Price-Format",
+  "version": "2.2.0",
+  "_release": "2.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.2.0",
+    "commit": "b31c19e54be4fc018680d92c0b00a9c58fbede7d"
+  },
+  "_source": "https://github.com/flaviosilveira/Jquery-Price-Format.git",
+  "_target": "^2.2.0",
+  "_originalSource": "https://github.com/flaviosilveira/Jquery-Price-Format.git"
+}
