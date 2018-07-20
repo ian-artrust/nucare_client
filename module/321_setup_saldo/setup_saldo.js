@@ -258,7 +258,14 @@ $(document).ready(function() {
     });
 
     $('#setup_batal').click(function(){
-        batalSetup();
+        var tanya = confirm('Anda Yakin Membatalkan Setup Saldo...?');
+        if (tanya==true) {
+            batalSetup();
+            $('.konten').load('321_setup_saldo/setup_saldo.php');
+        }else{
+            return false;
+        }
+
     });
 
 });

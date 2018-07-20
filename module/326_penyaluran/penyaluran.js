@@ -28,7 +28,7 @@ $(document).ready(function() {
 			{"data": "no_pengajuan" },
 			{"data": "nama_mustahik" },
 			{"data": "nama_master" },
-			{"data": "tgl_pengajuan" },
+			{"data": "tgl_realisasi" },
 			{"data": "jml_realisasi" },
 			{"data": "status" },
 		]
@@ -55,7 +55,7 @@ $(document).ready(function() {
 			{"data": "no_pengajuan" },
 			{"data": "nama_lembaga" },
 			{"data": "nama_master" },
-			{"data": "tgl_pengajuan" },
+			{"data": "tgl_realisasi" },
 			{"data": "jml_realisasi" },
 			{"data": "status" },
 		]
@@ -98,16 +98,17 @@ $(document).ready(function() {
 		"columns": [
 			{"data": "no_rekening" },
 			{"data": "nama_bank" },
+			{"data": "kode_akun" },
 		]
 	});
 
 	$('#lookup_bank tbody').on('click', 'tr', function (e) {
 		var table = $('#lookup_bank').DataTable();
-        var data = table.row( this ).data();
-        $('#no_rekening').val(data["no_rekening"]);
-        $('#nama_bank').val(data["nama_bank"]);
-        $('.close').click();
-    });
+		var data = table.row( this ).data();
+		$('#no_rekening').val(data["no_rekening"]);
+		$('#nama_bank').val(data["nama_bank"]);
+		$('.close').click();
+	});
 
 	$('#lookup_akun_debit tbody').on('click', 'tr', function (e) {
 		var table = $('#lookup_akun_debit').DataTable();
@@ -151,7 +152,6 @@ $(document).ready(function() {
 	}
 
 	function savePenyaluran(){
-		var no_rekening = $('#no_rekening').val();
 		var no_pengajuan = $('#no_pengajuan').val();
 		var periode = $('#periode').val();
 		var tgl_penyaluran = $('#tgl_penyaluran').val();
@@ -159,20 +159,21 @@ $(document).ready(function() {
 		var keterangan = $('#keterangan').val();
 		var kode_akun_debit = $('#kode_akun_debit').val();
 		var kode_akun_kredit = $('#kode_akun_kredit').val();
+		var no_rekening = $('#no_rekening').val();
 		$.ajax({
 			url:  urlAPI+"/app/module/penyaluran/penyaluran_save.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
 				'aksi':'save',
-				'no_rekening':no_rekening,
 				'no_pengajuan':no_pengajuan,
 				'periode':periode,
                 'tgl_penyaluran':tgl_penyaluran,
 				'jml_realisasi':jml_realisasi,
 				'keterangan':keterangan,
 				'kode_akun_debit':kode_akun_debit,
-				'kode_akun_kredit':kode_akun_kredit
+				'kode_akun_kredit':kode_akun_kredit,
+				'no_rekening':no_rekening
 			},
 			success : function(data){
 				alert(data.pesan);

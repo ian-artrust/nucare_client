@@ -235,7 +235,7 @@ session_start();
                                     <td>&nbsp;</td>
                                     <td>
                                         <br>
-                                        <button type="button" class="btn btn-info" 
+                                        <button type="button" class="btn btn-success" 
                                         data-toggle="modal" data-target="#debitModal">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </button>
@@ -330,7 +330,7 @@ session_start();
                                 <td>&nbsp;</td>
                                 <td>
                                     <br>
-                                    <button type="button" class="btn btn-info" 
+                                    <button type="button" class="btn btn-success" 
                                     data-toggle="modal" data-target="#debitModalBank">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
@@ -402,11 +402,16 @@ session_start();
                                 <td>&nbsp;</td>
                                 <td>
                                     <br>
-									<button type="button" class="btn btn-info" 
+									<button type="button" class="btn btn-warning" 
 									data-toggle="modal" data-target="#rekeningModal">
 										<span class="glyphicon glyphicon-search"></span>
 									</button>
 								</td>
+                            </tr>
+                            <tr>
+                                <td colspan='2'>
+                                    *Rekening Bank Wajib Dipilih 
+                                </td>
                             </tr>
                         </table>
                         <br>

@@ -47,6 +47,40 @@ $(document).ready(function() {
 		    ]
         });
 
+        $('#lookup_bank').DataTable( {
+            "ajax": urlAPI+"/app/lib/lookup_bank.php",
+            "columns": [
+                {"data": "no_rekening" },
+                {"data": "nama_bank" },
+                {"data": "kode_akun" },
+            ]
+        });
+
+        $('#lookup_bank_dua').DataTable( {
+            "ajax": urlAPI+"/app/lib/lookup_bank.php",
+            "columns": [
+                {"data": "no_rekening" },
+                {"data": "nama_bank" },
+                {"data": "kode_akun" },
+            ]
+        });
+    
+        $('#lookup_bank tbody').on('click', 'tr', function (e) {
+            var table = $('#lookup_bank').DataTable();
+            var data = table.row( this ).data();
+            $('#no_rekening').val(data["no_rekening"]);
+            $('#nama_bank').val(data["nama_bank"]);
+            $('.close').click();
+        });
+
+        $('#lookup_bank_dua tbody').on('click', 'tr', function (e) {
+            var table = $('#lookup_bank').DataTable();
+            var data = table.row( this ).data();
+            $('#no_rekening_dua').val(data["no_rekening"]);
+            $('#nama_bank_dua').val(data["nama_bank"]);
+            $('.close').click();
+        });
+
         $('#lookup_akun_debit tbody').on('click', 'tr', function (e) {
             var table = $('#lookup_akun_debit').DataTable();
             var data = table.row( this ).data();
@@ -171,6 +205,8 @@ $(document).ready(function() {
         var a_debit = $('#a_debit').val();
         var kda_kredit = $('#kda_kredit').val();
         var a_kredit = $('#a_kredit').val();
+        var no_rekening = $('#no_rekening').val();
+        var no_rekening_dua = $('#no_rekening_dua').val();
 		$.ajax({
 			url:  urlAPI+"/app/module/hak_amil/alokasi_amil_save.php",
 			type: 'POST',
@@ -188,7 +224,9 @@ $(document).ready(function() {
                 kda_debit:kda_debit,
                 a_debit:a_debit,
                 kda_kredit:kda_kredit,
-                a_kredit:a_kredit
+                a_kredit:a_kredit,
+                no_rekening:no_rekening,
+                no_rekening_dua:no_rekening_dua
 			},
 			success : function(data){
 				alert(data.pesan);

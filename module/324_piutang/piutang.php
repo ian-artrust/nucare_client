@@ -239,6 +239,59 @@ session_start();
 	        </div>
 	    </div>
     </div>
+
+     <!-- Modal Lookup Rekening -->
+	<div class="modal fade" id="rekeningModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" style="width:800px">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                	<span aria-hidden="true">&times;</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">Lookup Bank Piutang</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table id="lookup_bank" width="100%" class="table table-bordered table-hover table-striped">
+	                    <thead>
+	                        <tr>
+	                            <th>No Rekening</th>
+	                            <th>Nama Bank</th>
+								<th>Kode Akun</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+        		</tbody>
+	                </table>  
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <!-- Modal Lookup Rekening -->
+    <div class="modal fade" id="rekAngsuranModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" style="width:800px">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                	<span aria-hidden="true">&times;</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">Lookup Bank Angsuran</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table id="lookup_bank_angsuran" width="100%" class="table table-bordered table-hover table-striped">
+	                    <thead>
+	                        <tr>
+	                            <th>No Rekening</th>
+	                            <th>Nama Bank</th>
+								<th>Kode Akun</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody></tbody>
+	                </table>  
+	            </div>
+	        </div>
+	    </div>
+	</div>
 <br>
 	<div class="container-fluid">
         <br>
@@ -254,8 +307,8 @@ session_start();
                 <div id="piutang" class="tab-pane fade in active">
                     <div class="row container-fluid">
                         <div class="col-md-2">
-                            <label>Kode Kreditur</label><br>
-                            <input type="text" class="form-control" size="15" 
+                            <label>Kode</label><br>
+                            <input type="text" class="form-control" 
                             name="kode_kreditur" id="kode_kreditur" readonly="true">
                         </div>
                         <div class="col-md-3">
@@ -263,15 +316,17 @@ session_start();
                             <div class="input-group">
                                 <input type="text" class="form-control" name="nama_kreditur" id="nama_kreditur" readonly="true">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" data-toggle="modal" data-target="#krediturModal" type="button">
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#krediturModal" type="button">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <label>Periode</label><br>
-                            <select class="form-control" data-show-subtext="true" data-live-search="true" name="periode" id="periode">
+                            <select class="form-control" style="width:105px;"
+                            data-show-subtext="true" data-live-search="true" 
+                            name="periode" id="periode">
                             </select>
                         </div>
                         <div class="col-md-2">
@@ -291,8 +346,80 @@ session_start();
                                 <option value="Dana Amil">Dana Amil</option>
                             </select>
                         </div>
+                        <div class="col-md-2">
+                            <label>Jumlah: </label><label id="format_jml"></label><br>
+                            <input type="text" class="form-control" 
+                            name="jml_piutang" id="jml_piutang">
+                        </div>
                     </div>
-                    <br>
+                    <div class="row container-fluid">
+                        <div class="col-md-3">
+                            <label>Akun Debit</label><br>
+                            <div class="input-group">
+                                <input type="hidden" class="form-control"  
+                                name="kode_akun_debit" id="kode_akun_debit" 
+                                readonly="true">
+                                <input type="text" class="form-control" 
+                                name="akun_debit" id="akun_debit" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#akunModalDebit" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Akun Kredit</label><br>
+                            <div class="input-group">
+                                <input type="hidden" class="form-control"  
+                                name="kode_akun_kredit" id="kode_akun_kredit" 
+                                readonly="true">
+                                <input type="text" class="form-control" 
+                                name="akun_kredit" id="akun_kredit" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" data-toggle="modal" data-target="#akunModalKredit" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>No Rekening</label><br>
+                            <input type="text" class="form-control"  
+                            name="no_rekening" id="no_rekening" 
+                            readonly="true">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Bank</label><br>
+                            <div class="input-group">
+                                <input type="text" class="form-control" 
+                                name="nama_bank" id="nama_bank" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#rekeningModal" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <br>
+                            <button class="btn btn-success" id="save">
+                                <span class="glyphicon glyphicon-disk"></span>
+                                Simpan
+                            </button>
+
+                            <button class="btn btn-primary" id="reset">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row container-fluid">
+                        <div class="col-md-8">
+                            *Jika Piutang Kreditnya adalah Bank maka rekening bank Wajib Dipilih, jika kas kosongkan saja
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row container-fluid">
                         <div class="col-md-3">
                             <div class="row">
@@ -311,7 +438,7 @@ session_start();
                                 </div>
                             </div>
                             <div class="row">
-                                *Copy No Piutang pada datagrid dan paste didalam textboxt batal piutang
+                                *Copy No Piutang pada datagrid dan paste didalam textbox batal piutang
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -333,129 +460,119 @@ session_start();
 
                 <div id="angsuran_piutang" class="tab-pane">
                     <div class="row container-fluid">
-                        <div class="col-md-12">
-                            <table width="100%" border="0">
-                                <tr>
-                                    <td>
-                                        <label>Kreditur</label><br>
-                                        <input type="text" class="form-control" 
-                                        name="nama_kreditur_ang" id="nama_kreditur_ang" readonly="true">
-                                        <!-- <label>No Piutang</label><br> -->
-                                        <input type="hidden" class="form-control" 
-                                        name="no_angsuran" id="no_angsuran" readonly="true">
-                                        <input type="hidden" class="form-control" 
-                                        name="no_piutang_ang" id="no_piutang_ang" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Jml Piutang</label><br>
-                                        <input type="text" class="form-control"
-                                        name="jumlah_piutang" id="jumlah_piutang" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Sisa Piutang</label><br>
-                                        <input type="text" class="form-control" 
-                                        name="sisa_piutang" id="sisa_piutang" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Sumber Dana</label><br>
-                                        <input type="text" class="form-control"
-                                        name="sumber_dana_ang" id="sumber_dana_ang" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <br>
-                                        <button type="button" class="btn btn-info" 
-                                        data-toggle="modal" data-target="#krediturAngsuranModal">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Periode</label><br>
-                                        <select class="form-control" width="150"
-                                        data-show-subtext="true" data-live-search="true" 
-                                        name="periode_angsuran" id="periode_angsuran">
-                                        </select>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Tgl Angsuran</label><br>
-                                        <div class='input-group date' id="datetimepicker2">
-                                            <input type='text' class="form-control" id="tgl_angsuran"/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        <label>Jumlah: </label><label id="format_jml_angsuran"></label><br>
-                                        <input type="text" class="form-control" 
-                                        name="jml_angsuran" id="jml_angsuran">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Kode Debit</label><br>
-                                        <input type="text" class="form-control"
-                                        name="kode_debit_angsuran" id="kode_debit_angsuran" 
-                                        readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Akun Debit</label><br>
-                                        <input type="text" class="form-control" 
-                                        name="akun_debit_angsuran" 
-                                        id="akun_debit_angsuran" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <br>
-                                        <button type="button" class="btn btn-success" 
-                                        data-toggle="modal" data-target="#akunDebitAngsuran">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Kode Kredit</label><br>
-                                        <input type="text" class="form-control" 
-                                        name="kode_kredit_angsuran" id="kode_kredit_angsuran" 
-                                        readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <label>Akun Kredit</label><br>
-                                        <input type="text" class="form-control" 
-                                        name="akun_kredit_angsuran" 
-                                        id="akun_kredit_angsuran" readonly="true">
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <br>
-                                        <button type="button" class="btn btn-warning" 
-                                        data-toggle="modal" data-target="#akunKreditAngsuran">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <br>
-                                        <button class="btn btn-success" id="save_angsuran">
-                                            <span class="glyphicon glyphicon-disk"></span>
-                                            Simpan
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="col-md-2">
+                            <label>Kreditur</label><br>
+                            <input type="text" class="form-control" 
+                            name="nama_kreditur_ang" id="nama_kreditur_ang" readonly="true">
+                            <!-- <label>No Piutang</label><br> -->
+                            <input type="hidden" class="form-control" 
+                            name="no_angsuran" id="no_angsuran" readonly="true">
+                            <input type="hidden" class="form-control" 
+                            name="no_piutang_ang" id="no_piutang_ang" readonly="true">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Jml Piutang</label><br>
+                            <input type="text" class="form-control"
+                            name="jumlah_piutang" id="jumlah_piutang" readonly="true">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Sisa</label><br>
+                            <input type="text" class="form-control" 
+                            name="sisa_piutang" id="sisa_piutang" readonly="true">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Sumber Dana</label><br>
+                            <div class="input-group">
+                                <input type="text" class="form-control" 
+                                name="sumber_dana_ang" id="sumber_dana_ang" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#krediturAngsuranModal" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Periode</label><br>
+                            <select class="form-control" width="175"
+                            data-show-subtext="true" data-live-search="true" 
+                            name="periode_angsuran" id="periode_angsuran">
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Tgl Angsuran</label><br>
+                            <div class='input-group date' id="datetimepicker2">
+                                <input type='text' class="form-control" id="tgl_angsuran"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <br>
+                    <div class="row container-fluid">
+                        <div class="col-md-2">
+                            <label>Jumlah: </label><label id="format_jml_angsuran"></label><br>
+                            <input type="text" class="form-control" 
+                            name="jml_angsuran" id="jml_angsuran">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Debit</label><br>
+                            <div class="input-group">
+                                <input type="hidden" name="kode_debit_angsuran" id="kode_debit_angsuran">
+                                <input type="text" class="form-control" 
+                                name="akun_debit_angsuran" id="akun_debit_angsuran" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#akunDebitAngsuran" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Kredit</label><br>
+                            <div class="input-group">
+                                <input type="hidden" name="kode_kredit_angsuran" id="kode_kredit_angsuran">
+                                <input type="text" class="form-control" 
+                                name="akun_kredit_angsuran" id="akun_kredit_angsuran" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" data-toggle="modal" data-target="#akunKreditAngsuran" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>No Rekening</label><br>
+                            <input type="text" class="form-control"  
+                            name="no_rek_angsuran" id="no_rek_angsuran" 
+                            readonly="true">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Bank</label><br>
+                            <div class="input-group">
+                                <input type="text" class="form-control" 
+                                name="nama_bank_angsuran" id="nama_bank_angsuran" readonly="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#rekAngsuranModal" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row container-fluid">
+                        <div class="col-md-1">
+                            <br>
+                            <button class="btn btn-success" id="save_angsuran">
+                                <span class="glyphicon glyphicon-disk"></span>
+                                Simpan
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                        <br>
+                            *Jika angsuran debitnya adalah Bank maka rekening bank Wajib Dipilih, jika kas kosongkan saja
+                        </div>
+                    </div>
                     <hr>
                     <div class="row container-fluid">
                         <div class="col-md-3">
@@ -466,7 +583,7 @@ session_start();
                                 Batal Angsuran
                             </button>
                             <br>
-                            *Copy No Angsuran pada datagrid dan paste didalam textboxt batal angsuran
+                            *Copy No Angsuran pada datagrid dan paste didalam textbox batal angsuran
                         </div>
                         <div class="col-md-9">
                             <table id="tabel_angsuran" width="100%" class="display" cellspacing="0">

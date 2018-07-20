@@ -125,22 +125,23 @@ session_start();
 	    </div>
     </div>
 
-    <!-- Modal Lookup Bank -->
-	<div class="modal fade" id="bankModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- Modal Lookup Rekening -->
+	<div class="modal fade" id="rekeningModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog" style="width:800px">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                	<span aria-hidden="true">&times;</span>
 	                </button>
-	                <h4 class="modal-title" id="myModalLabel">Lookup Data Bank</h4>
+	                <h4 class="modal-title" id="myModalLabel">Lookup Bank Piutang</h4>
 	            </div>
 	            <div class="modal-body">
 	                <table id="lookup_bank" width="100%" class="table table-bordered table-hover table-striped">
 	                    <thead>
 	                        <tr>
 	                            <th>No Rekening</th>
-	                            <th>Bank</th>
+	                            <th>Nama Bank</th>
+								<th>Kode Akun</th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
@@ -149,7 +150,7 @@ session_start();
 	            </div>
 	        </div>
 	    </div>
-    </div>
+	</div>
 
    <br>
 	<div class="container-fluid">
@@ -234,73 +235,58 @@ session_start();
                         <table>
                             <tr>
                                 <td>
-                                    <label>Kode Akun</label><br>
-                                    <input type="text" class="form-control" size="15" 
-                                    name="kode_akun_debit" id="kode_akun_debit" readonly="true">
+                                    <label>Debit</label><br>
+                                    <div class="input-group">
+                                        <input type="hidden" name="kode_akun_debit" id="kode_akun_debit">
+                                        <input type="text" class="form-control" 
+                                        name="akun_debit" id="akun_debit" readonly="true">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" data-toggle="modal" 
+                                            data-target="#akunModalDebit" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
-                                    <label>Nama Akun</label><br>
-                                    <input type="text" class="form-control" 
-                                    name="akun_debit" id="akun_debit" readonly="true" size="35">
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>
-                                    <br>
-                                    <button type="button" class="btn btn-success" 
-                                    data-toggle="modal" data-target="#akunModalDebit">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>
-                                    <label>Kode Akun</label><br>
-                                    <input type="text" class="form-control" size="15" 
-                                    name="kode_akun_kredit" id="kode_akun_kredit" readonly="true">
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>
-                                    <label>Akun Counter</label><br>
-                                    <input type="text" class="form-control" 
-                                    name="akun_kredit" id="akun_kredit" readonly="true" size="35">
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>
-                                    <br>
-                                    <button type="button" class="btn btn-warning" 
-                                    data-toggle="modal" data-target="#akunModalKredit">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
+                                    <label>Kredit</label><br>
+                                    <div class="input-group">
+                                        <input type="hidden" name="kode_akun_kredit" id="kode_akun_kredit">
+                                        <input type="text" class="form-control" 
+                                        name="akun_kredit" id="akun_kredit" readonly="true">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info" data-toggle="modal" 
+                                            data-target="#akunModalKredit" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
                                     <label>No Rekening</label><br>
-                                    <input type="text" class="form-control" 
-                                    name="no_rekening" id="no_rekening" size="40" readonly="true">
+                                    <input type="text" class="form-control"  
+                                    name="no_rekening" id="no_rekening" 
+                                    readonly="true">
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
-                                    <label>BANK</label><br>
-                                    <input type="text" class="form-control" 
-                                    name="nama_bank" id="nama_bank" size="80" readonly="true">
-                                    <input type="hidden" class="form-control" 
-                                    name="saldo_bank" id="saldo_bank" size="10" readonly="true">
+                                    <label>Bank</label><br>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" 
+                                        name="nama_bank" id="nama_bank" readonly="true">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#rekeningModal" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </td>
                                 <td>&nbsp;</td>
                                 <td>
                                     <br>
-                                    <button type="button" class="btn btn-info" data-toggle="modal" 
-                                    data-target="#bankModal">
-		                        	    <span class="glyphicon glyphicon-search"></span>
-		                            </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <button type="submit" id="save" name="save" value="save" class="btn btn-sm btn-success">Simpan</button>
-                                </td>
-                                <td>&nbsp;</td>
-                                <td>
                                     <button type="reset" id="reset" class="btn btn-sm btn-primary">Reset</button>
                                 </td>
                             </tr>
@@ -326,7 +312,7 @@ session_start();
                                 <th>No Pengajuan</th>
                                 <th>Mustahik</th>
                                 <th>Pengajuan</th>
-                                <th>Tgl Pengajuan</th>
+                                <th>Tgl Realisasi</th>
                                 <th>Jml Realisasi</th>
                                 <th>Status</th>
                             </tr>

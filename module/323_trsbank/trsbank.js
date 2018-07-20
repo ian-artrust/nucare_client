@@ -14,6 +14,19 @@ $(document).ready(function() {
 		$('#tabelbank').DataTable({
 			"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
 		});
+
+		table = $('#tabel_setoran').DataTable( {
+			"ajax": urlAPI+"/app/module/trsbank/get_setoran.php",
+			"lengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
+			"columns": [
+				{"data": "no_setoran" },
+				{"data": "tgl_setoran" },
+				{"data": "penyetor" },
+				{"data": "jml_setoran" },
+				{"data": "nama_bank" },
+				{"data": "status" },
+			]
+		});
 	
 		$('#lookup_bank').DataTable( {
 			"ajax": urlAPI+"/app/module/trsbank/lookup_rekening.php",

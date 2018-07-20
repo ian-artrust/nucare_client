@@ -99,6 +99,23 @@ $(document).ready(function() {
 		    ]
         });
 
+        $('#lookup_bank').DataTable( {
+		    "ajax": urlAPI+"/app/lib/lookup_bank.php",
+		    "columns": [
+			    {"data": "no_rekening" },
+                {"data": "nama_bank" },
+                {"data": "kode_akun" },
+		    ]
+        });
+
+        $('#lookup_bank tbody').on('click', 'tr', function (e) {
+            var table = $('#lookup_bank').DataTable();
+            var data = table.row( this ).data();
+            $('#no_rekening').val(data["no_rekening"]);
+            $('#nama_bank').val(data["nama_bank"]);
+            $('.close').click();
+        });
+
         $('#lookup_kategori tbody').on('click', 'tr', function (e) {
             var table = $('#lookup_kategori').DataTable();
             var data = table.row( this ).data();
@@ -179,6 +196,26 @@ $(document).ready(function() {
     	resetForm();
     });
 
+    $('#batal_asset').click(function(){
+        var tanya = confirm('Anda Yakin Membatalkan Transaksi...?');
+        if(tanya==true){
+            batalAsset();
+            resetForm();
+        }else{
+            return false;
+        }
+    });
+
+    $('#batal_penyusutan').click(function(){
+        var tanya = confirm('Anda Yakin Membatalkan Penyusutan...?');
+        if(tanya==true){
+            batalPenyusutan();
+            resetForm();
+        }else{
+            return false;
+        }
+    });
+
     function loadAkun(){
         var no_asset_pny = $('#no_asset_pny').val();
 		$.getJSON(urlAPI+'/app/module/asset/akun_load.php', {no_asset_pny:no_asset_pny}, function(json) {
@@ -212,7 +249,6 @@ $(document).ready(function() {
         var satuan = $('#satuan').val();
         var harga_perolehan = $('#harga_perolehan').val();
         var nilai_residu = $('#nilai_residu').val();
-        // var nilai_asset = $('#nilai_asset').val();
         var nilai_penyusutan = $('#nilai_penyusutan').val();
         var kode_akun_asset = $('#kode_akun_asset').val();
         var akun_asset = $('#akun_asset').val();
@@ -220,6 +256,7 @@ $(document).ready(function() {
         var akun_debit = $('#akun_debit').val();
         var kode_akun_kredit = $('#kode_akun_kredit').val();
         var akun_kredit = $('#akun_kredit').val();
+        var no_rekening = $('#no_rekening').val();
 		$.ajax({
 			url:  urlAPI+"/app/module/asset/asset_save.php",
 			type: 'POST',
@@ -238,14 +275,14 @@ $(document).ready(function() {
                 satuan:satuan,
                 harga_perolehan:harga_perolehan,
                 nilai_residu:nilai_residu,
-                //nilai_asset:nilai_asset,
                 nilai_penyusutan:nilai_penyusutan,
                 kode_akun_asset:kode_akun_asset,
                 akun_asset:akun_asset,
                 kode_akun_debit:kode_akun_debit,
                 akun_debit:akun_debit, 
                 kode_akun_kredit:kode_akun_kredit,
-                akun_kredit:akun_kredit
+                akun_kredit:akun_kredit,
+                no_rekening:no_rekening
 			},
 			success : function(data){
 				alert(data.pesan);
@@ -279,6 +316,42 @@ $(document).ready(function() {
                 nilai_pny:nilai_pny,
                 akun_dua:akun_dua,
                 akun_tiga:akun_tiga
+			},
+			success : function(data){
+				alert(data.pesan);
+			}, 
+			error: function(data){
+				alert(data.pesan);
+			}
+		});
+    }
+
+    function batalAsset(){
+        var no_batal_asset = $('#no_batal_asset').val();
+		$.ajax({
+			url:  urlAPI+"/app/module/asset/batal_asset.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				no_batal_asset:no_batal_asset
+			},
+			success : function(data){
+				alert(data.pesan);
+			}, 
+			error: function(data){
+				alert(data.pesan);
+			}
+		});
+    }
+
+    function batalPenyusutan(){
+        var no_batal_penyusutan = $('#no_batal_penyusutan').val();
+		$.ajax({
+			url:  urlAPI+"/app/module/asset/batal_penyusutan.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				no_batal_penyusutan:no_batal_penyusutan
 			},
 			success : function(data){
 				alert(data.pesan);
